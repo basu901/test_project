@@ -2,7 +2,12 @@ package com.example.shaunakbasu.finalproject;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.renderscript.Allocation;
+import android.support.annotation.IntegerRes;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +25,7 @@ import android.widget.TextView;
 
 import com.example.shaunakbasu.finalproject.data.Course;
 import com.example.shaunakbasu.finalproject.data.Filler;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,8 +51,13 @@ public class CoursePage extends AppCompatActivity{
         myCourses.add(new Course(R.drawable.environment,"Environmental Science"));
         myCourses.add(new Course(R.drawable.health,"Health and Hygiene"));
 
-        for(int i=0;i<getResources().getStringArray(R.array.text_fields).length;i++)
-            personal_list_fields.add(new Filler(getResources().getStringArray(R.array.text_fields)[i], getResources().getStringArray(R.array.mipmap_fields)[i]));
+        //for(int i=0;i<getResources().getStringArray(R.array.text_fields).length;i++)
+          //  personal_list_fields.add(new Filler(getResources().getStringArray(R.array.text_fields)[i], getResources().getIntArray(R.array.mipmap_fields)[i]));
+
+        personal_list_fields.add(new Filler("Courses",R.mipmap.courses));
+        personal_list_fields.add(new Filler("Questions",R.mipmap.questions));
+        personal_list_fields.add(new Filler("Help & Feedback",R.mipmap.help));
+        personal_list_fields.add(new Filler("Logout",R.mipmap.logout));
 
 
             GridView gridView = (GridView) findViewById(R.id.course_grid);
@@ -69,13 +80,13 @@ public class CoursePage extends AppCompatActivity{
             });
 
             Log.v(CoursePage.class.getSimpleName(),"After gridview");
-            /*mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
             mDrawerList = (ListView) findViewById(R.id.personal_list_view);
             ArrayAdapter<Filler> personalPaneAdapter = new PersonalPaneAdapter();
             mDrawerList.setAdapter(personalPaneAdapter);
             // Set the list's click listener
             mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
-            */
+
     }
 
 
@@ -137,7 +148,7 @@ public class CoursePage extends AppCompatActivity{
             ImageView image;
         }
 
-        public View getView( View convertView,int position, ViewGroup parent) {
+        public View getView( int position,View convertView, ViewGroup parent) {
             ViewHolder viewHolder=new ViewHolder();
             if (convertView == null) {
                 //result = LayoutInflater.from(parent.getContext()).inflate(R.layout.personal_listview_elements, parent, false);
@@ -152,8 +163,9 @@ public class CoursePage extends AppCompatActivity{
 
             Filler item = data.get(position);
 
+
             viewHolder.text.setText(item.getText());
-            viewHolder.image.setImageResource(Integer.parseInt(item.getImage()));
+            viewHolder.image.setImageResource(item.getImage());
 
             return convertView;
         }
@@ -172,7 +184,7 @@ public class CoursePage extends AppCompatActivity{
             ImageView course_image;
         }
 
-        public View getView(int position, ViewGroup parent,View convertView){
+        public View getView( int position,View convertView,ViewGroup parent){
 
             ViewHolder vh=new ViewHolder();
             int image_id;
@@ -191,13 +203,14 @@ public class CoursePage extends AppCompatActivity{
 
             else{
                 vh=(ViewHolder)convertView.getTag();
+                vh.course_image.setImageBitmap(null);
             }
 
             image_id=myCourses.get(position).getCourse_image();
             text=myCourses.get(position).getCourse_text();
 
             vh.course_text.setText(text);
-            vh.course_image.setImageResource(image_id);
+            Picasso.with(getApplicationContext()).load(image_id).into(vh.course_image);
 
             return convertView;
         }

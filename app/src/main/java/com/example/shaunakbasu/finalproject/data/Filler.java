@@ -5,9 +5,9 @@ package com.example.shaunakbasu.finalproject.data;
  */
 public class Filler {
     String text;
-    String image;
+    int image;
 
-    public Filler(String text,String image){
+    public Filler(String text,int  image){
         this.text=text;
         this.image=image;
     }
@@ -16,7 +16,7 @@ public class Filler {
         return text;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 }
