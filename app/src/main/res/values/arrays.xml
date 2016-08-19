@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="text_fields">
+        <item>Courses</item>
+        <item>Questions</item>
+        <item>Help and Feedback</item>
+        <item>Logout</item>
+    </string-array>
+
+    <string-array name="mipmap_fields">
+        <item>R.mipmap.courses</item>
+        <item>R.mipmap.questions</item>
+        <item>R.mipmap.help</item>
+        <item>R.mipmap.logout</item>
+    </string-array>
+
+</resources>
