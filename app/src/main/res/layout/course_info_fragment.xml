@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".CourseInfoFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#009688">
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/c_image"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Course Name :"
+        android:id="@+id/c_display"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:layout_margin="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/c_image"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Course Description :"
+        android:id="@+id/c_desc"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_margin="16dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/c_display"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/c_display_content"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:textColor="@android:color/white"
+        android:layout_margin="16dp"
+        android:layout_below="@+id/c_image"
+        android:layout_toEndOf="@+id/c_display" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/c_desc_content"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/c_desc"
+        android:layout_alignStart="@+id/c_desc" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Duration :"
+        android:id="@+id/c_duration"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/c_desc_content"
+        android:layout_alignStart="@+id/c_desc_content"
+        android:layout_marginTop="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Rating :"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:id="@+id/c_rating"
+        android:layout_below="@+id/c_duration"
+        android:layout_alignStart="@+id/c_duration"
+        android:layout_marginTop="30dp" />
+
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ratingBar"
+        android:layout_alignTop="@+id/c_rating"
+        android:layout_toEndOf="@+id/c_duration"
+        android:isIndicator="false"
+        android:rating="3.5"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/c_duration_content"
+        android:textColor="@android:color/white"
+        android:layout_margin="16dp"
+        android:textSize="20sp"
+        android:textStyle="italic"
+        android:layout_below="@+id/c_desc_content"
+        android:layout_toEndOf="@+id/c_duration" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ENROLL!"
+        android:id="@+id/register"
+        android:background="@drawable/ripple_effect"
+        android:textColor="@android:color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"/>
+
+
+</RelativeLayout>

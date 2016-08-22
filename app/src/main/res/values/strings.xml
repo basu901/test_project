@@ -1,3 +1,19 @@
 <resources>
-    <string name="app_name">FinalProject</string>
+    <string name="app_name">W.E.R.A.</string>
+    <string name="title_activity_content">ContentActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="story">"The success story of Mrs. D Jyothi Reddy from Warangal in Hyderabad has a narrative arc that pushes the limit of unbelievable. A rural agricultural labourer whose pay was Rs.5 per day till 1989,she is now the CEO of Keys software solutions in USA,creating revenues in the millions. Not forgetting where she came from, she is actively involved in philanthropic endeavours, serving rural India.Jyothi was born in 1970 and she was the youngest among the five girl children in a poor family in India. Due to her family's financial situation,she was admitted into a welfare orphanage. To get the admission, she had to become a motherless child.She attended a government school while at the orphanage and she also took vocational course while residing in the superintendent's house. Jyothi used to help her superintendent with their household work.Then came an opportunity in the form of NYK (Nehru Yuva Kendra), a Central Government scheme which sought to create awareness among the youth. She took the opportunity and became a NYK Volunteer and later started teaching."
+        "But the money she was making was not sufficient to run the family. She used to stitch petticoats at night to make more money. She also learned typewriting. Apart from her bad financial situation,"
+        "she also had to fight with family and society to do what she wanted to do. She studied and obtained a BA from Dr. B.R. Ambedkar"
+        "Open University in 1994 and studied for a postgraduate degree from the Kakatiya University on weekends and obtained it in 1997."
+    "It was not an easy journey for her to settle in the US. She had to work in a gas station, work as a baby sitter, load/unload goods and work at a video shop for her survival. She then joined"
+        "a company called CS America as a recruiter with an aid of a close relative. Later she got another offer from a different company, but it did not stay and she had to go back to babysitting and gas station for survival. That was the beginning of her entrepreneurial"
+        "dreams. She wanted to start her own business and was looking for the suitable line of business to start."
+    "When she visited Mexico for stamping, she realized that she could start a consulting company as she was familiar with the paperwork involved with the Visa Processing. With her savings of $40000, she opened an office in Phoenix in 2011."
+        "She has been successfully running her company KEYSS since then."</string>
 </resources>

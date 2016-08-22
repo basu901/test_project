@@ -2,25 +2,87 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.shaunakbasu.finalproject">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/wera_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:parentActivityName=".Inspire">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Inspire"/>
+        </activity>
+        <activity android:name=".Inspire">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".CoursePage"
+        <activity
+            android:name=".CoursePage"
+            android:label="Enrolled Courses">
+        </activity>
+        <provider
+            android:name=".data.generated.UserDetailsProvider"
+            android:authorities="com.example.shaunakbasu.finalproject.data.UserDetailsProvider"
+            android:exported="false"/>
+        <provider
+            android:name=".data.generated.RegisteredCoursesProvider"
+            android:authorities="com.example.shaunakbasu.finalproject.data.RegisteredCoursesProvider"
+            android:exported="false"/>
+        <provider
+            android:name=".data.generated.EnglishProvider"
+            android:authorities="com.example.shaunakbasu.finalproject.data.EnglishProvider"
+            android:exported="false"/>
+        <activity android:name=".CourseInfoActivity"
+            android:label="Course Details"
+            android:parentActivityName=".CourseInfoMain">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CourseInfoMain"/>
+        </activity>
+        <activity android:name=".CourseInfoMain"
             android:label="Available Courses"
+            android:parentActivityName=".CoursePage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CoursePage"/>
+        </activity>
+        <activity android:name=".CourseExpand"
+            android:label="English"
+            android:parentActivityName=".CoursePage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CoursePage"/>
+        </activity>
+        <activity android:name=".CourseVideo"
+            android:label=""
+            android:screenOrientation="landscape"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".CourseExpand">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CourseExpand"/>
+        </activity>
+        <activity android:name=".UserDetails"
+            android:label="Your Details"
+            android:parentActivityName=".CoursePage">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CoursePage"/>
+        </activity>
+        <activity android:name=".SignUp"
+            android:label="Sign Up"
             android:parentActivityName=".MainActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".MainActivity"/>
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
         </activity>
 
     </application>

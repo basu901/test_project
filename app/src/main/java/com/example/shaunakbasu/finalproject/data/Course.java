@@ -9,10 +9,14 @@ import android.widget.TextView;
 public class Course {
     int course_image;
     String course_text;
+    String description;
+    String duration;
 
-    public Course(int course_image,String course_text){
+    public Course(int course_image,String course_text,String description,String duration){
         this.course_image=course_image;
         this.course_text=course_text;
+        this.description=description;
+        this.duration=duration;
     }
 
     public int getCourse_image() {
@@ -21,6 +25,14 @@ public class Course {
 
     public String getCourse_text() {
         return course_text;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getDuration() {
+        return duration;
     }
 
     public void setCourse_image(int course_image) {

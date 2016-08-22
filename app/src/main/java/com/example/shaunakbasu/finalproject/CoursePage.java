@@ -2,136 +2,113 @@ package com.example.shaunakbasu.finalproject;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
+import android.database.Cursor;
 import android.os.Bundle;
-import android.renderscript.Allocation;
-import android.support.annotation.IntegerRes;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.shaunakbasu.finalproject.data.Course;
-import com.example.shaunakbasu.finalproject.data.Filler;
+import com.example.shaunakbasu.finalproject.data.*;
+import com.example.shaunakbasu.finalproject.utils.DataInsert;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * Created by shaunak basu on 14-08-2016.
  */
-public class CoursePage extends AppCompatActivity{
+public class CoursePage extends AppCompatActivity {
 
-    ArrayList<Course> myCourses=new ArrayList<>();
-    ArrayList<Filler> personal_list_fields=new ArrayList<>();
+
+    ArrayList<Filler> personal_list_fields = new ArrayList<>();
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.courses);
-
-        myCourses.add(new Course(R.drawable.english,"English"));
-        myCourses.add(new Course(R.drawable.maths,"Basic Mathematics"));
-        myCourses.add(new Course(R.drawable.environment,"Environmental Science"));
-        myCourses.add(new Course(R.drawable.health,"Health and Hygiene"));
+        final String id= DataInsert.id;
+;
 
         //for(int i=0;i<getResources().getStringArray(R.array.text_fields).length;i++)
-          //  personal_list_fields.add(new Filler(getResources().getStringArray(R.array.text_fields)[i], getResources().getIntArray(R.array.mipmap_fields)[i]));
+        //  personal_list_fields.add(new Filler(getResources().getStringArray(R.array.text_fields)[i], getResources().getIntArray(R.array.mipmap_fields)[i]));
 
-        personal_list_fields.add(new Filler("Courses",R.mipmap.courses));
-        personal_list_fields.add(new Filler("Questions",R.mipmap.questions));
-        personal_list_fields.add(new Filler("Help & Feedback",R.mipmap.help));
-        personal_list_fields.add(new Filler("Logout",R.mipmap.logout));
+        Log.v("Checking ID:",id);
+        Cursor personal=getApplicationContext().getContentResolver().query(UserDetailsProvider.User.CONTENT_URI,
+                new String[]{UserDetailsColumns.LAST_NAME,UserDetailsColumns.FIRST_NAME,UserDetailsColumns.IMAGE},
+                UserDetailsColumns._ID+" =?",
+                new String[]{id},null);
+
+        if(personal.moveToFirst()){
+            String first_name=personal.getString(personal.getColumnIndex(UserDetailsColumns.FIRST_NAME));
+            String last_name=personal.getString(personal.getColumnIndex(UserDetailsColumns.LAST_NAME));
+            String name=first_name+" "+last_name;
+            int image=personal.getInt(personal.getColumnIndex(UserDetailsColumns.IMAGE));
+            ((TextView)findViewById(R.id.personal_name_text)).setText(name);
+            ImageView imageView=(ImageView)findViewById(R.id.personal_image_view);
+            Picasso.with(getApplicationContext()).load(image).into(imageView);
+
+        }
+
+        personal_list_fields.add(new Filler("Courses", R.mipmap.courses));
+        personal_list_fields.add(new Filler("Questions", R.mipmap.questions));
+        personal_list_fields.add(new Filler("User Details",R.mipmap.user_details));
+        personal_list_fields.add(new Filler("Help & Feedback", R.mipmap.help));
+        personal_list_fields.add(new Filler("Logout", R.mipmap.logout));
 
 
-            GridView gridView = (GridView) findViewById(R.id.course_grid);
-            CourseAdapter courseArrayAdapter = new CourseAdapter();
-            gridView.setAdapter(courseArrayAdapter);
+        RegisteredCoursesFragment fragment = new RegisteredCoursesFragment();
+        getSupportFragmentManager().beginTransaction().add(R.id.registered_details_container, fragment).commit();
 
-            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    CourseAdapter courseAdapter = (CourseAdapter) adapterView.getAdapter();
-                    Course current_course = courseAdapter.getItem(i);
-                    String course_name = current_course.getCourse_text();
-                    int course_image = current_course.getCourse_image();
+        Log.v(CoursePage.class.getSimpleName(), "After gridview");
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        mDrawerList = (ListView) findViewById(R.id.personal_list_view);
+        ArrayAdapter<Filler> personalPaneAdapter = new PersonalPaneAdapter();
+        mDrawerList.setAdapter(personalPaneAdapter);
+        // Set the list's click listener
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                Filler item = personal_list_fields.get(position);
+                String text = item.getText();
+                Log.v("The text is:", text);
+                switch (text) {
+                    case "Courses":
+                        Intent intent = new Intent(CoursePage.this, CourseInfoMain.class);
+                        intent.putExtra("id",id);
+                        startActivity(intent);
+                        break;
 
-                    Intent intent = new Intent(CoursePage.this, PersonalDetailsFragment.class);
-                    intent.putExtra("course_name", course_name);
-                    intent.putExtra("image_details", course_image);
-                    startActivity(intent);
+                    case "User Details":
+                            Intent user_details=new Intent(CoursePage.this,UserDetails.class);
+                            user_details.putExtra("id",id);
+                            startActivity(user_details);
+                            break;
+                    case "Logout":
+                        Intent intent_main_page = new Intent(CoursePage.this, MainActivity.class);
+                        startActivity(intent_main_page);
+                        break;
+                    default:
+                        Toast.makeText(getApplicationContext(), "Sorry site under construction :(", Toast.LENGTH_SHORT).show();
+
                 }
-            });
 
-            Log.v(CoursePage.class.getSimpleName(),"After gridview");
-            mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-            mDrawerList = (ListView) findViewById(R.id.personal_list_view);
-            ArrayAdapter<Filler> personalPaneAdapter = new PersonalPaneAdapter();
-            mDrawerList.setAdapter(personalPaneAdapter);
-            // Set the list's click listener
-            mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+            }
+        });
 
     }
-
-
-
-
-     private class DrawerItemClickListener implements ListView.OnItemClickListener {
-        @Override
-        public void onItemClick(AdapterView parent, View view, int position, long id) {
-        selectItem(position);
-        }
-     }
-
-    /** Swaps fragments in the main content view */
-    private void selectItem(int position) {
-
-        Filler item=personal_list_fields.get(position);
-        String text=item.getText();
-        switch(text){
-            case "Courses":onStart();
-                break;
-        }
-        // Create a new fragment and specify the planet to show based on position
-        /*PersonalDetailsFragment fragment = new PersonalDetailsFragment();
-        Bundle args = new Bundle();
-        args.putInt(PlanetFragment.ARG_PLANET_NUMBER, position);
-        fragment.setArguments(args);
-
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.content_frame, fragment)
-                .commit();
-
-        // Highlight the selected item, update the title, and close the drawer*/
-
-        mDrawerList.setItemChecked(position, true);
-        setTitle(text);
-        mDrawerLayout.closeDrawer(mDrawerList);
-    }
-
-    public void setTitle(CharSequence title) {
-        //mTitle = title;
-        getActionBar().setTitle(title);
-    }
-
 
     class PersonalPaneAdapter extends ArrayAdapter<Filler> {
         Context context;
@@ -171,48 +148,4 @@ public class CoursePage extends AppCompatActivity{
         }
     }
 
-    class CourseAdapter extends ArrayAdapter<Course>{
-
-        Context context;
-
-        public CourseAdapter(){
-            super(getApplicationContext(),R.layout.individual_course,myCourses);
-        }
-
-        public class ViewHolder{
-            TextView course_text;
-            ImageView course_image;
-        }
-
-        public View getView( int position,View convertView,ViewGroup parent){
-
-            ViewHolder vh=new ViewHolder();
-            int image_id;
-            String text;
-            if(convertView==null){
-
-                convertView=getLayoutInflater().inflate(R.layout.individual_course,parent,false);
-
-                vh.course_text=(TextView)convertView.findViewById(R.id.course_text_desc);
-                vh.course_image=(ImageView)convertView.findViewById(R.id.course_image_view);
-
-
-
-                convertView.setTag(vh);
-            }
-
-            else{
-                vh=(ViewHolder)convertView.getTag();
-                vh.course_image.setImageBitmap(null);
-            }
-
-            image_id=myCourses.get(position).getCourse_image();
-            text=myCourses.get(position).getCourse_text();
-
-            vh.course_text.setText(text);
-            Picasso.with(getApplicationContext()).load(image_id).into(vh.course_image);
-
-            return convertView;
-        }
-    }
 }

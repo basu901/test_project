@@ -23,5 +23,9 @@ public class UserDetailsColumns {
     public static final String LAST_NAME = "last_name";
     @DataType(DataType.Type.INTEGER)
     public static final String PHONE = "phone";
+    @DataType(DataType.Type.INTEGER)
+    public static final String IMAGE = "image";
+    @DataType(DataType.Type.INTEGER)
+    public static final String PORTRAIT = "portrait";
 
 }
