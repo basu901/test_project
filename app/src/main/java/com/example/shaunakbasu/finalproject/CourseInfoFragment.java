@@ -89,31 +89,44 @@ public class CourseInfoFragment extends Fragment {
             confirm=ContentUris.parseId(newRow);
 
 
-            if(course_name.equals("English")){
-                ContentValues english_values=new ContentValues();
-                english_values.put(EnglishColumns.TP_NAME,"Basics in English Speaking");
-                english_values.put(EnglishColumns.TP_SRC,"tU3lRm5W3oQ");
-                english_values.put(EnglishColumns.PARENT,"Speaking in English");
+            if(course_name.equals("English")) {
 
-                newRow=getActivity().getApplicationContext().getContentResolver().insert(EnglishProvider.English.CONTENT_URI,english_values);
 
-                english_values.put(EnglishColumns.TP_NAME,"English Fillers");
-                english_values.put(EnglishColumns.TP_SRC,"tKmkB7OVO_M");
-                english_values.put(EnglishColumns.PARENT,"Speaking in English");
+                Cursor english_cursor = getActivity().getApplicationContext().getContentResolver().query(EnglishProvider.English.CONTENT_URI,
+                        new String[]{EnglishColumns._ID, EnglishColumns.TP_NAME},
+                        null,
+                        null, null);
 
-                newRow=getActivity().getApplicationContext().getContentResolver().insert(EnglishProvider.English.CONTENT_URI,english_values);
+                if (english_cursor.moveToFirst()) {
 
-                english_values.put(EnglishColumns.TP_NAME,"Using Should,Would,Could");
-                english_values.put(EnglishColumns.TP_SRC,"O-wmulY5Z4o");
-                english_values.put(EnglishColumns.PARENT,"Prepositions");
+                }
+                else {
 
-                newRow=getActivity().getApplicationContext().getContentResolver().insert(EnglishProvider.English.CONTENT_URI,english_values);
+                    ContentValues english_values = new ContentValues();
+                    english_values.put(EnglishColumns.TP_NAME, "Basics in English Speaking");
+                    english_values.put(EnglishColumns.TP_SRC, "tU3lRm5W3oQ");
+                    english_values.put(EnglishColumns.PARENT, "Speaking in English");
 
-                english_values.put(EnglishColumns.TP_NAME,"Prepositions of place - in, on, at");
-                english_values.put(EnglishColumns.TP_SRC,"_zhw3BUysUA");
-                english_values.put(EnglishColumns.PARENT,"Prepositions");
+                    newRow = getActivity().getApplicationContext().getContentResolver().insert(EnglishProvider.English.CONTENT_URI, english_values);
 
-                newRow=getActivity().getApplicationContext().getContentResolver().insert(EnglishProvider.English.CONTENT_URI,english_values);
+                    english_values.put(EnglishColumns.TP_NAME, "English Fillers");
+                    english_values.put(EnglishColumns.TP_SRC, "tKmkB7OVO_M");
+                    english_values.put(EnglishColumns.PARENT, "Speaking in English");
+
+                    newRow = getActivity().getApplicationContext().getContentResolver().insert(EnglishProvider.English.CONTENT_URI, english_values);
+
+                    english_values.put(EnglishColumns.TP_NAME, "Using Should,Would,Could");
+                    english_values.put(EnglishColumns.TP_SRC, "O-wmulY5Z4o");
+                    english_values.put(EnglishColumns.PARENT, "Prepositions");
+
+                    newRow = getActivity().getApplicationContext().getContentResolver().insert(EnglishProvider.English.CONTENT_URI, english_values);
+
+                    english_values.put(EnglishColumns.TP_NAME, "Prepositions of place - in, on, at");
+                    english_values.put(EnglishColumns.TP_SRC, "_zhw3BUysUA");
+                    english_values.put(EnglishColumns.PARENT, "Prepositions");
+
+                    newRow = getActivity().getApplicationContext().getContentResolver().insert(EnglishProvider.English.CONTENT_URI, english_values);
+                }
             }
         }
 
